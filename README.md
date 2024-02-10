@@ -48,5 +48,4 @@ This project is licensed under the Apache-2.0 License - see the LICENSE.md file 
 
 ## Acknowledgments
 
-Inspiration, code snippets, etc.
 * [awesome-readme](https://github.com/matiassingers/awesome-readme)
