@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Clustering application</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="{{url_for('static', filename='logo.png')}}"
+            alt="Logo"
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+          Basketball Hotspot Analyzer
+        </a>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+          <h2 class="mb-4">
+            <img src="{{url_for('static', filename='logo.png')}}" width="50" />
+            Clustering
+          </h2>
+
+          <div class="card">
+            <div class="card-body">
+              <p>Set the input values to predict a segment.</p>
+              <form
+                action="/"
+                method="POST"
+                class="row g-3 justify-content-center"
+              >
+                <div class="col-md-6">
+                  <label for="feature_01" class="form-label">Player Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="feat_01"
+                    name="feature_01"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="feature_02" class="form-label">Games</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="feat_02"
+                    name="feature_02"
+                    min="1"
+                    max="100"
+                  />
+                </div>
+
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">
+                    Predict now!
+                  </button>
+                </div>
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <title>Clustering application</title>
+  </head>
+
+  <style>
+    body {
+      font-family: 'IBM Plex Sans Thai', serif;
+      font-size: 14px;
+    }
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img
+          src="{{url_for('static', filename='logo.png')}}"
+          alt="Logo"
+          width="30"
+          height="24"
+          class="d-inline-block align-text-top"
+        />
+        Basketball Hotspot Analyzer
+      </a>
+    </div>
+  </nav>
+
+
+  
+  <body>
+    <div class="top-heading">
+      <h2>
+        <img src="{{url_for('static', filename='logo.png')}}" width=50> Clustering
+      </h2>
+    </div>
+
+    <div class='outer'>
+      <div class='inner'>
+        <p>Set the input values predict a segment</p>
+
+        <form action='/predict' method='POST'>
+
+          <div class='input_area'>
+            <label for="feature_01">Feature #1</label>
+            <input type="number" id="feat_01" name="feature_01"
+                min="1" max="100">
+          </div>
+
+          <div class='input_area'>
+            <label for="feature_02">Feature #2</label>
+            <input type="number" id="feat_02" name="feature_02"
+                min="1" max="100">
+          </div>
+
+      </div>
+
+      <div style="width:700px;" id="container">
+        <div>
+          <button type="submit" class="btn" onClick="window.location.href='/predict'">
+            Predict now!
+          </button>
+        </div>
+      </div>
+
+      <p>
+        Author: Vytautas Bielinskas<br>
+        Stand with Ukraine!
+      </p>
+
+    </div>
+  </body>
+</html>
