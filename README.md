@@ -36,7 +36,6 @@ python3 app.py
 
 ## Authors
 
-Contributors names and contact info
 
 * [Jason Ang ](https://)
 * [Matthew Peck](https://)
