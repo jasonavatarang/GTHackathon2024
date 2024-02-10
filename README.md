@@ -1,10 +1,10 @@
-# Project Title
+# Naba Baskeetball Hotspot Shot Analyzer
 
-Simple overview of use/purpose.
+Finds patterns 
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+Developing a DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is a popular clustering algorithm that is great for identifying clusters of varying shapes and sizes in a data set, particularly when there is noise. Unlike many clustering algorithms, DBSCAN does not require you to specify the number of clusters beforehand. Instead, it uses two parameters: eps (epsilon) and min_samples to determine the clusters based on density.
 
 ## Getting Started
 
@@ -37,7 +37,7 @@ command to run if program contains helper info
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
+ex. Jason Ang  
 ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## Version History
