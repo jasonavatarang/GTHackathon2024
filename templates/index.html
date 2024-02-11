@@ -72,7 +72,7 @@
                 class="row g-3 justify-content-center"
               >
                 <div class="col-md-6">
-                  <label for="player_name" class="form-label">Player Name</label>
+                  <label for="player_name" class="form-label">Player First Name</label>
                   <input
                     type="text"
                     class="form-control"
@@ -81,7 +81,33 @@
                   />
                 </div>
 
-        
+                <div class="col-md-6">
+                  <label for="last_name" class="form-label">Player Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="last_name"
+                    name="last_name"
+                  />
+                </div>
+          <!-- Radio buttons -->
+<!-- Radio buttons -->
+<fieldset class="mb-3">
+  <legend class="form-label">2/3 Pointers</legend>
+  <div class="form-check">
+      <input class="form-check-input" type="radio" name="point" id="two-pointers" value="2-pt" checked>
+      <label class="form-check-label" for="two-pointers">2-pt</label>
+  </div>
+  <div class="form-check">
+      <input class="form-check-input" type="radio" name="point" id="three-pointers" value="3-pt">
+      <label class="form-check-label" for="three-pointers">3-pt</label>
+  </div>
+  <div class="form-check">
+      <input class="form-check-input" type="radio" name="point" id="both-pointers" value="Both">
+      <label class="form-check-label" for="both-pointers">Both</label>
+  </div>
+</fieldset>
+
                 
                 </div>
                 <div class="row">
@@ -152,11 +178,31 @@
                 >
                     <h4 class="mb-3">Preferences</h4>
 
-                    <!-- Slider bar -->
-                    <div class="mb-3">
-                        <label for="customRange1" class="form-label">Adjust Level</label>
-                        <input type="range" class="form-range" id="customRange1">
-                    </div>
+                <!-- Slider bar for Epsilon Hyperparameter -->
+<!-- index.html -->
+<input type="range" id="epsilonSlider" min="0.1" max="5.0" step="0.1" value="0.5" onchange="updateGraph()">
+<input type="range" id="minSamplesSlider" min="1" max="10" step="1" value="5" onchange="updateGraph()">
+<div id="plotDiv"></div>
+
+<script>
+function updateGraph() {
+    const epsilon = document.getElementById('epsilonSlider').value;
+    const min_samples = document.getElementById('minSamplesSlider').value;
+
+    fetch('/update_plot', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ epsilon: epsilon, min_samples: min_samples }),
+    })
+    .then(response => response.text())
+    .then(plotHtml => {
+        document.getElementById('plotDiv').innerHTML = plotHtml;
+    });
+}
+</script>
+
 
                     <!-- Radio buttons -->
                     <fieldset class="mb-3">
