@@ -1,4 +1,4 @@
 
 *.pyc
 src.zip
-./dataset/final_dataset.csv
+# ./dataset/final_dataset.csv
