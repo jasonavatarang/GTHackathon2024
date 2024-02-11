@@ -1,18 +1,10 @@
 # Installation
 
-## Work with the _demo-stock-visualization_ code
+## NBA Hostspot Analyzer
 ```
-git clone https://github.com/Avaiga/demo-stock-visualization.git
-cd demo-stock-visualization
+git clone https://github.com/jasonavatarang/GTHackathon2024
 cd src
 pip install -r requirements.txt
+python app.py
 ```
 
-If you want to run tests, please install `Pipenv`:
-```
-pip install pipenv
-git clone https://github.com/jasonavatarang/GTHackathon2024
-cd demo-stock-visualization
-pipenv install --dev
-pipenv run pytest
-```
