@@ -3,49 +3,23 @@ from flask import (
     Flask,
     request,
     render_template,
-    url_for
+    url_for,
+    flash,
+    redirect
 )
 import pickle
 import numpy as np
 from scipy.spatial import distance
 import plotly.graph_objs as go
 from plotly.offline import plot
+import pandas as pd
+
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # if request.method == 'GET':
-    #     return 'The URL /predict is accessed directly. Go to the main page firstly'
-    
-    # if request.method == 'POST':
-    #     input_val = request.form.to_dict()
-
-    #     # Example: Load your DataFrame here
-    #     # For demonstration, assuming a DataFrame `data` exists
-    #     data = pd.DataFrame({
-    #         'coord_x': [1,2],
-    #         'coord_y': [1,2],
-    #         'player_name': ['adf','fd']
-    #     })
-        # filtered_data = data[(data['PlayerName'] == player_name) & (data['Season'] >= start_season)]
-
-    #     # Instead of calculating Euclidean distances to centroids,
-    #     # let's directly plot the DataFrame for demonstration purposes
-    #     # You can replace this part with your actual data processing logic
-
-    #     # Generate a Plotly figure
-    #     fig = go.Figure(data=go.Scatter(x=data['coord_x'], y=data['coord_y'], mode='markers', marker_color=data['player_name'], text=data['player_name']))
-
-    #     # Convert the figure to HTML
-    #     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
-
-    #     return render_template('index.html', plot_div=plot_div)
     return render_template('index.html')
-
-@app.route('/', methods=['POST'])
-def get_input_values():
-    val = request.form['my_form']
 
 @app.route('/predict', methods=['POST', 'GET'])
 def predict():
@@ -54,7 +28,13 @@ def predict():
     
     if request.method == 'POST':
         input_val = request.form.to_dict()
-
+        print(input_val)
+        player_name = input_val['player_name']
+        start_date = input_val['start-date']
+        end_date = input_val['end-date']
+        # if player_name =="" or start_date =="" or end_date =="":
+        #     flash('Invalid input: Input cannot be empty.', 'warning')
+        #     return redirect(url_for('index'))
         # Example: Load your DataFrame here
         # For demonstration, assuming a DataFrame `data` exists
         data = pd.DataFrame({
@@ -63,48 +43,54 @@ def predict():
             'player_name': ['adf','fd']
         })
 
-        # Instead of calculating Euclidean distances to centroids,
-        # let's directly plot the DataFrame for demonstration purposes
-        # You can replace this part with your actual data processing logic
 
         # Generate a Plotly figure
-        fig = go.Figure(data=go.Scatter(x=data['coord_x'], y=data['coord_y'], mode='markers', marker_color=data['player_name'], text=data['player_name']))
+        fig = go.Figure(data=go.Scatter(x=data['coord_x'], y=data['coord_y'], mode='markers', marker_color='#ff0000', text=data['player_name']))
 
         # Convert the figure to HTML
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+        
+        
 
-        return render_template('predict.html', plot_div=plot_div)
+        title = f"{player_name} hotspots from {start_date} to {end_date}"
+        
+        return render_template('index.html', plot_div=plot_div, title =title)
 
-# @app.route('/predict', methods=['POST', 'GET'])
-# def predict():
-#     if request.method == 'GET':
-#         return 'The URL /predict is accessed directly. Go to the main page firstly'
+@app.route('/filter', methods=['POST', 'GET'])
+def fitler():
+    if request.method == 'GET':
+        return 'The URL /predict is accessed directly. Go to the main page firstly'
+    
+    if request.method == 'POST':
+        input_val = request.form.to_dict()
+        print(input_val)
+        player_name = input_val['player_name']
+        start_date = input_val['start-date']
+        end_date = input_val['end-date']
+        # if player_name =="" or start_date =="" or end_date =="":
+        #     flash('Invalid input: Input cannot be empty.', 'warning')
+        #     return redirect(url_for('index'))
+        # Example: Load your DataFrame here
+        # For demonstration, assuming a DataFrame `data` exists
+        data = pd.DataFrame({
+            'coord_x': [1,2],
+            'coord_y': [1,2],
+            'player_name': ['adf','fd']
+        })
 
-#     if request.method == 'POST':
-#         input_val = request.form
 
-#         if input_val != None:
-#             # collecting values
-#             vals = []
-#             for key, value in input_val.items():
-#                 vals.append(float(value))
+        # Generate a Plotly figure
+        fig = go.Figure(data=go.Scatter(x=data['coord_x'], y=data['coord_y'], mode='markers', marker_color='#ff0000', text=data['player_name']))
 
-#         # Calculate Euclidean distances to freezed centroids
-#         with open('freezed_centroids.pkl', 'rb') as file:
-#             freezed_centroids = pickle.load(file)
+        # Convert the figure to HTML
+        plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+        
+        
 
-#         assigned_clusters = []
-#         l = []  # list of distances
+        title = f"{player_name} hotspots from {start_date} to {end_date}"
+        
+        return render_template('index.html', plot_div=plot_div, title=title)
 
-#         for i, this_segment in enumerate(freezed_centroids):
-#             dist = distance.euclidean(*vals, this_segment)
-#             l.append(dist)
-#             index_min = np.argmin(l)
-#             assigned_clusters.append(index_min)
-
-#         return render_template(
-#             'predict.html', result_value=f'Segment = #{index_min}'
-#             )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
